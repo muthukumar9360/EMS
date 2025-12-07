@@ -79,4 +79,15 @@ public class LeaveController {
 
         return "redirect:/leave/pending";
     }
+
+    @GetMapping("/my-leaves")
+    public String myLeaves(@AuthenticationPrincipal CustomUserDetails loggedIn, Model model) {
+
+        Employee employee = loggedIn.getUser().getEmployeeProfile();
+
+        model.addAttribute("leaves", leaveService.getLeaveByEmployee(employee));
+
+        return "employee/my-leaves"; // this matches your HTML file name
+    }
+
 }

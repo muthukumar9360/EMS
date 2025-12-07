@@ -1,8 +1,11 @@
 package com.example.ems.Config;
 
-import com.example.ems.Model.*;
-import com.example.ems.Repository.*;
-
+import com.example.ems.Model.Employee;
+import com.example.ems.Model.Role;
+import com.example.ems.Model.User;
+import com.example.ems.Repository.EmployeeRepository;
+import com.example.ems.Repository.RoleRepository;
+import com.example.ems.Repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -30,35 +33,46 @@ public class DataInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) {
 
-        // Create roles if missing
+        // Ensure admin role exists
         Role adminRole = roleRepo.findByName("ROLE_ADMIN")
                 .orElseGet(() -> roleRepo.save(new Role("ROLE_ADMIN")));
 
-        Role empRole = roleRepo.findByName("ROLE_EMPLOYEE")
-                .orElseGet(() -> roleRepo.save(new Role("ROLE_EMPLOYEE")));
+        createAdmin("admin1", "Administrator One", "ADM001",
+                "Management", "System Admin", "admin1@ems.com", "9876543210", adminRole);
 
-        // Create admin user if missing
-        if (!userRepo.existsByUsername("admin")) {
+        createAdmin("admin2", "Administrator Two", "ADM002",
+                "Operations", "Assistant Admin", "admin2@ems.com", "9123456789", adminRole);
+    }
 
-            User admin = new User();
-            admin.setFullName("Administrator");
-            admin.setUsername("admin");
-            admin.setPassword(passwordEncoder.encode("Admin@123"));
-            admin.setRoles(Set.of(adminRole));
-            userRepo.save(admin);
+    private void createAdmin(String username, String fullName, String empCode,
+                             String dept, String designation, String email,
+                             String phone, Role adminRole) {
 
-            // Create admin employee profile
-            Employee adminEmp = new Employee();
-            adminEmp.setEmpCode("ADMIN001");
-            adminEmp.setDepartment("Management");
-            adminEmp.setDesignation("System Administrator");
-            adminEmp.setEmail("admin@ems.com");
-            adminEmp.setPhone("9999999999");
-            adminEmp.setUser(admin);
-
-            employeeRepo.save(adminEmp);
-
-            System.out.println("DEFAULT ADMIN USER CREATED: admin / Admin@123");
+        if (userRepo.existsByUsername(username)) {
+            return; // already exists
         }
+
+        // Create User
+        User user = new User();
+        user.setUsername(username);
+        user.setFullName(fullName);
+        user.setPassword(passwordEncoder.encode("Admin@123"));
+        user.setRoles(Set.of(adminRole));
+
+        // Create Employee Profile
+        Employee emp = new Employee();
+        emp.setEmpCode(empCode);
+        emp.setDepartment(dept);
+        emp.setDesignation(designation);
+        emp.setEmail(email);
+        emp.setPhone(phone);
+
+        // Bind both sides
+        user.setEmployeeProfile(emp); // cascade saves employee
+
+        // Save user -> cascade saves employee
+        userRepo.save(user);
+
+        System.out.println("ADMIN CREATED: " + username);
     }
 }

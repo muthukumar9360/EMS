@@ -29,9 +29,10 @@
       Welcome,
       <span class="text-blue-600" th:text="${employee.user.fullName}"></span>
     </h2>
-    <p class="text-gray-600 mt-2">Employee Id:
+    <p class="text-gray-600 mt-2 text-2xl">Employee Id:
       <span th:text="${employee.id}"></span>
-    </p>
+    </p><br>
+    <a href="/employee/change-password" class="text-xl underline">Change Password</a><br><br>
   </div>
 
   <!-- ATTENDANCE CHECK-IN/OUT -->
@@ -70,6 +71,10 @@
     <a href="/leave/apply"
        class="bg-blue-500 hover:bg-blue-600 text-white p-6 rounded-xl text-center shadow">
       Apply for Leave
+    </a>
+
+    <a href="/leave/my-leaves" class="bg-green-500 hover:bg-green-600 text-white p-6 rounded-xl text-center shadow">
+      View My Leave Requests
     </a>
 
     <a href="/payroll/history"

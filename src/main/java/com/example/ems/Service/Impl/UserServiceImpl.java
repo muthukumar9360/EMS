@@ -31,6 +31,10 @@ public class UserServiceImpl implements UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    public void saveUser(User user) {
+        userRepo.save(user);
+    }
+
     @Override
     public User registerUser(String fullName, String username, String rawPassword) {
 

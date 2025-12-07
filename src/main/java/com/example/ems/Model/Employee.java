@@ -16,7 +16,7 @@ public class Employee {
     private String email;
     private String phone;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
 

@@ -19,4 +19,7 @@ public interface EmployeeService {
     List<Employee> getAllEmployees();
 
     void deleteEmployee(Long id);
+
+    Employee save(Employee employee);
+
 }
