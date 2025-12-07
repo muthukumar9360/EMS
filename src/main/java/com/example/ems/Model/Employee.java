@@ -1,6 +1,7 @@
 package com.example.ems.Model;
 
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "employees")
@@ -19,6 +20,9 @@ public class Employee {
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.REMOVE)
+    private List<Payroll> payrolls;
 
     public Employee() {}
 

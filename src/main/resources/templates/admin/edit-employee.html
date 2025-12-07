@@ -14,8 +14,8 @@
     <h1 class="text-xl font-semibold">EMS Admin – Edit Employee</h1>
 
     <div>
-      <a href="/admin/dashboard" class="mr-4 hover:underline">Dashboard</a>
       <a href="/admin/employees" class="mr-4 hover:underline">Employees</a>
+      <a href="/admin/dashboard" class="mr-4 hover:underline">Dashboard</a>
       <a href="/logout" class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded">Logout</a>
     </div>
   </div>
@@ -46,49 +46,49 @@
       <div>
         <label class="block text-gray-700 font-medium">Full Name (User)</label>
         <input type="text" th:value="${employee.user.fullName}" readonly
-               class="w-full p-2 border rounded mt-1 bg-gray-100 cursor-not-allowed">
+               class="w-full p-2 border rounded mt-1 bg-gray-200 cursor-not-allowed">
       </div>
 
       <!-- USERNAME (READ ONLY) -->
       <div>
-        <label class="block text-gray-700 font-medium">Username (User)</label>
+        <label class="block text-gray-700 font-medium">Username</label>
         <input type="text" th:value="${employee.user.username}" readonly
-               class="w-full p-2 border rounded mt-1 bg-gray-100 cursor-not-allowed">
+               class="w-full p-2 border rounded mt-1 bg-gray-200 cursor-not-allowed">
       </div>
 
       <!-- EMPLOYEE CODE -->
       <div>
         <label class="block text-gray-700 font-medium">Employee Code</label>
         <input type="text" name="empCode" th:value="${employee.empCode}" required
-               class="w-full p-2 border rounded mt-1 focus:ring focus:ring-blue-300">
+               class="w-full p-2 border rounded mt-1">
       </div>
 
       <!-- DEPARTMENT -->
       <div>
         <label class="block text-gray-700 font-medium">Department</label>
         <input type="text" name="department" th:value="${employee.department}" required
-               class="w-full p-2 border rounded mt-1 focus:ring focus:ring-blue-300">
+               class="w-full p-2 border rounded mt-1">
       </div>
 
       <!-- DESIGNATION -->
       <div>
         <label class="block text-gray-700 font-medium">Designation</label>
         <input type="text" name="designation" th:value="${employee.designation}" required
-               class="w-full p-2 border rounded mt-1 focus:ring focus:ring-blue-300">
+               class="w-full p-2 border rounded mt-1">
       </div>
 
       <!-- EMAIL -->
       <div>
         <label class="block text-gray-700 font-medium">Email</label>
         <input type="email" name="email" th:value="${employee.email}" required
-               class="w-full p-2 border rounded mt-1 focus:ring focus:ring-blue-300">
+               class="w-full p-2 border rounded mt-1">
       </div>
 
       <!-- PHONE -->
       <div>
         <label class="block text-gray-700 font-medium">Phone</label>
         <input type="text" name="phone" th:value="${employee.phone}" required
-               class="w-full p-2 border rounded mt-1 focus:ring focus:ring-blue-300">
+               class="w-full p-2 border rounded mt-1">
       </div>
 
       <!-- SUBMIT -->

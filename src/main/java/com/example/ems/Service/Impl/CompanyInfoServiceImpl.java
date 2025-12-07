@@ -16,7 +16,7 @@ public class CompanyInfoServiceImpl implements CompanyInfoService {
     }
 
     @Override
-    public CompanyInfo getCompanyInfo() {
+    public CompanyInfo getInfo() {
         return companyRepo.findById(1L)
                 .orElseGet(() -> companyRepo.save(new CompanyInfo()));
     }

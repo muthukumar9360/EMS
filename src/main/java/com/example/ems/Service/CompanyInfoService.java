@@ -4,7 +4,7 @@ import com.example.ems.Model.CompanyInfo;
 
 public interface CompanyInfoService {
 
-    CompanyInfo getCompanyInfo();
+    CompanyInfo getInfo();
 
     CompanyInfo updateCompanyInfo(CompanyInfo info);
 }

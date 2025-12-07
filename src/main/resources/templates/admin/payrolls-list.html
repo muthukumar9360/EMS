@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Payroll Records - EMS Admin</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+
+<!-- NAVBAR -->
+<nav class="bg-blue-700 text-white p-4 shadow">
+  <div class="container mx-auto flex justify-between items-center">
+    <h1 class="text-xl font-semibold">Payroll Records</h1>
+
+    <div>
+      <a href="/admin/dashboard" class="mr-4 hover:underline">Dashboard</a>
+      <a href="/admin/payroll/generate" class="mr-4 hover:underline">Generate Payroll</a>
+      <a href="/logout" class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded">Logout</a>
+    </div>
+  </div>
+</nav>
+
+<!-- CONTENT -->
+<div class="container mx-auto mt-10">
+
+  <h2 class="text-2xl font-bold text-gray-800 mb-6">Payroll List</h2>
+
+  <div class="bg-white p-6 rounded-xl shadow">
+
+    <table class="w-full table-auto text-left">
+      <thead>
+      <tr class="bg-gray-200">
+        <th class="p-3">Employee</th>
+        <th class="p-3">Basic</th>
+        <th class="p-3">Allowances</th>
+        <th class="p-3">Deductions</th>
+        <th class="p-3">Net Pay</th>
+        <th class="p-3">Pay Date</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr th:each="p : ${payrolls}" class="border-b hover:bg-gray-50">
+        <td class="p-3" th:text="${p.employee.user.fullName}"></td>
+        <td class="p-3" th:text="${p.basic}"></td>
+        <td class="p-3" th:text="${p.allowances}"></td>
+        <td class="p-3" th:text="${p.deductions}"></td>
+        <td class="p-3 font-semibold text-green-700" th:text="${p.netPay}"></td>
+        <td class="p-3" th:text="${p.payDate}"></td>
+      </tr>
+
+      <tr th:if="${payrolls.size()} == 0">
+        <td colspan="6" class="text-center p-4 text-gray-600">
+          No payroll records found.
+        </td>
+      </tr>
+      </tbody>
+
+    </table>
+  </div>
+
+</div>
+
+</body>
+</html>

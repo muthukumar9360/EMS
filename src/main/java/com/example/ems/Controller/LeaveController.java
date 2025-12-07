@@ -36,21 +36,17 @@ public class LeaveController {
         Employee employee = loggedIn.getUser().getEmployeeProfile();
         request.setEmployee(employee);
 
-        leaveService.applyLeave(request);
-        redirectAttributes.addFlashAttribute("success", "Leave applied successfully!");
+        try {
+            leaveService.applyLeave(request);
+            redirectAttributes.addFlashAttribute("success", "Leave applied successfully!");
+        } catch (Exception ex) {
+            redirectAttributes.addFlashAttribute("error", ex.getMessage());
+            return "redirect:/leave/apply";  // go back to apply page with error
+        }
 
         return "redirect:/employee/dashboard";
     }
 
-    @GetMapping("/my-requests")
-    public String myRequests(@AuthenticationPrincipal CustomUserDetails loggedIn,
-                             Model model) {
-
-        Employee emp = loggedIn.getUser().getEmployeeProfile();
-        model.addAttribute("requests", leaveService.getLeaveByEmployee(emp));
-
-        return "employee/my-leave-requests";
-    }
 
     // ---------------- ADMIN FEATURES ----------------
 
@@ -68,7 +64,7 @@ public class LeaveController {
         leaveService.approveLeave(id);
         redirectAttributes.addFlashAttribute("success", "Leave Approved!");
 
-        return "redirect:/leave/pending";
+        return "redirect:/admin/dashboard";
     }
 
     @GetMapping("/reject/{id}")
@@ -77,7 +73,7 @@ public class LeaveController {
         leaveService.rejectLeave(id);
         redirectAttributes.addFlashAttribute("error", "Leave Rejected!");
 
-        return "redirect:/leave/pending";
+        return "redirect:/admin/dashboard";
     }
 
     @GetMapping("/my-leaves")

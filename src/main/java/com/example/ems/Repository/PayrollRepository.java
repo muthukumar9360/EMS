@@ -11,5 +11,7 @@ public interface PayrollRepository extends JpaRepository<Payroll, Long> {
 
     List<Payroll> findByEmployee(Employee employee);
 
+    void deleteByEmployee(Employee employee);
+
     List<Payroll> findByPayDateBetween(LocalDate start, LocalDate end);
 }

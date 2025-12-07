@@ -23,14 +23,18 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
 
     public UserServiceImpl(UserRepository userRepo,
-                           RoleRepository roleRepo,EmployeeRepository employeeRepo,
+                           RoleRepository roleRepo,
+                           EmployeeRepository employeeRepo,
                            PasswordEncoder passwordEncoder) {
+
         this.userRepo = userRepo;
         this.roleRepo = roleRepo;
-        this.employeeRepo=employeeRepo;
+        this.employeeRepo = employeeRepo;
         this.passwordEncoder = passwordEncoder;
     }
 
+    // FIXED ✔
+    @Override
     public void saveUser(User user) {
         userRepo.save(user);
     }
@@ -42,7 +46,7 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException("Username already exists.");
         }
 
-        // 1️⃣ Create and save user FIRST
+        // Create User
         User user = new User();
         user.setFullName(fullName);
         user.setUsername(username);
@@ -53,16 +57,16 @@ public class UserServiceImpl implements UserService {
 
         user.setRoles(Set.of(empRole));
 
-        User savedUser = userRepo.save(user); // IMPORTANT
+        User savedUser = userRepo.save(user);
 
-        // 2️⃣ NOW create employee with valid user_id
+        // Create empty employee profile
         Employee emp = new Employee();
         emp.setUser(savedUser);
+
         employeeRepo.save(emp);
 
         return savedUser;
     }
-
 
     @Override
     public User createUserWithRoles(User user, List<Role> roles) {

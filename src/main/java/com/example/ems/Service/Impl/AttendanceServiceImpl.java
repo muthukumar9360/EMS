@@ -66,4 +66,14 @@ public class AttendanceServiceImpl implements AttendanceService {
     public List<Attendance> getAttendanceByDate(LocalDate date) {
         return attendanceRepo.findByDate(date);
     }
+
+    @Override
+    public List<Attendance> getAttendanceBetween(LocalDate start, LocalDate end) {
+        return attendanceRepo.findByDateBetween(start, end);
+    }
+
+    @Override
+    public List<Attendance> getAllAttendance() {
+        return attendanceRepo.findAll();
+    }
 }
