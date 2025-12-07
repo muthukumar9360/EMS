@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Pending Leaves</title>
+</head>
+<body>
+
+<h2>Pending Leave Requests</h2>
+
+<div th:if="${success}" style="color: green;">
+    <p th:text="${success}"></p>
+</div>
+
+<div th:if="${error}" style="color: red;">
+    <p th:text="${error}"></p>
+</div>
+
+<table border="1">
+
+    <tr>
+        <th>Employee</th>
+        <th>Type</th>
+        <th>Start</th>
+        <th>End</th>
+        <th>Reason</th>
+        <th>Actions</th>
+    </tr>
+
+    <tr th:each="lr : ${pendingRequests}">
+        <td th:text="${lr.employee.user.fullName}"></td>
+        <td th:text="${lr.leaveType}"></td>
+        <td th:text="${lr.startDate}"></td>
+        <td th:text="${lr.endDate}"></td>
+        <td th:text="${lr.reason}"></td>
+
+        <td>
+            <a th:href="@{'/leave/approve/' + ${lr.id}}">Approve</a> |
+            <a th:href="@{'/leave/reject/' + ${lr.id}}">Reject</a>
+        </td>
+    </tr>
+
+</table>
+
+</body>
+</html>

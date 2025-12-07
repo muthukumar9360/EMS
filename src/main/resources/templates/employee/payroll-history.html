@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Payroll History - EMS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+
+<!-- NAVBAR -->
+<nav class="bg-blue-600 text-white p-4 shadow">
+    <div class="container mx-auto flex justify-between items-center">
+        <h1 class="text-xl font-semibold">EMS - Payroll History</h1>
+
+        <div>
+            <a href="/employee/dashboard" class="mr-4 hover:underline">Dashboard</a>
+            <a href="/logout" class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded">Logout</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container mx-auto mt-10">
+
+    <!-- HEADER -->
+    <div class="bg-white shadow rounded-xl p-8 mb-10">
+        <h2 class="text-2xl font-semibold text-gray-700">Payroll History</h2>
+        <p class="text-gray-600 mt-1">Employee:
+            <span class="font-medium" th:text="${employee.user.fullName}"></span>
+        </p>
+    </div>
+
+    <!-- PAYROLL TABLE -->
+    <div class="bg-white shadow rounded-xl p-6 mb-10">
+        <table class="w-full table-auto">
+            <thead>
+            <tr class="bg-gray-100 text-left">
+                <th class="p-3">Pay Date</th>
+                <th class="p-3">Basic</th>
+                <th class="p-3">Allowances</th>
+                <th class="p-3">Deductions</th>
+                <th class="p-3">Net Pay</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="p : ${payrolls}" class="border-b hover:bg-gray-50">
+
+                <td class="p-3" th:text="${p.payDate}"></td>
+                <td class="p-3" th:text="'₹ ' + ${p.basic}"></td>
+                <td class="p-3" th:text="'₹ ' + ${p.allowances}"></td>
+                <td class="p-3" th:text="'₹ ' + ${p.deductions}"></td>
+
+                <td class="p-3 font-semibold text-green-600"
+                    th:text="'₹ ' + ${p.netPay}">
+                </td>
+            </tr>
+
+            <tr th:if="${payrolls.size() == 0}">
+                <td colspan="5" class="p-4 text-center text-gray-600">
+                    No payroll records found.
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+</body>
+</html>

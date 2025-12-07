@@ -1,0 +1,8 @@
+﻿.\mvnw.cmd : The JAVA_HOME environment variable is not defined correctly, 
+At line:2 char:1
++ .\mvnw.cmd -DskipTests -e package 2>&1 | Out-File build.log -Encoding ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (The JAVA_HOME e...ned correctly, :String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+this environment variable is needed to run this program. 

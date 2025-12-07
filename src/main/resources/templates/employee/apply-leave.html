@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Apply Leave - EMS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+
+<!-- NAVBAR -->
+<nav class="bg-blue-600 text-white p-4 shadow">
+    <div class="container mx-auto flex justify-between items-center">
+        <h1 class="text-xl font-semibold">EMS - Apply Leave</h1>
+
+        <div>
+            <a href="/employee/dashboard" class="mr-4 hover:underline">Dashboard</a>
+            <a href="/logout" class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded">Logout</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container mx-auto mt-10">
+
+    <div class="max-w-lg mx-auto bg-white p-8 rounded-xl shadow">
+
+        <h2 class="text-2xl font-semibold text-gray-700 mb-6">Apply for Leave</h2>
+
+        <!-- Success Message -->
+        <div th:if="${success}"
+             class="bg-green-100 border border-green-300 text-green-700 px-4 py-3 rounded mb-4">
+            <p th:text="${success}"></p>
+        </div>
+
+        <!-- Error Message -->
+        <div th:if="${error}"
+             class="bg-red-100 border border-red-300 text-red-700 px-4 py-3 rounded mb-4">
+            <p th:text="${error}"></p>
+        </div>
+
+        <form method="post" action="/leave/apply" class="space-y-5">
+
+            <!-- START DATE -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Start Date</label>
+                <input type="date" name="startDate" required
+                       class="w-full p-2 mt-1 border rounded focus:ring focus:ring-blue-300">
+            </div>
+
+            <!-- END DATE -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700">End Date</label>
+                <input type="date" name="endDate" required
+                       class="w-full p-2 mt-1 border rounded focus:ring focus:ring-blue-300">
+            </div>
+
+            <!-- LEAVE TYPE -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Leave Type</label>
+                <select name="leaveType" required
+                        class="w-full p-2 mt-1 border rounded focus:ring focus:ring-blue-300">
+                    <option value="">Select leave type</option>
+                    <option value="Annual">Annual Leave</option>
+                    <option value="Sick">Sick Leave</option>
+                    <option value="Emergency">Emergency Leave</option>
+                </select>
+            </div>
+
+            <!-- REASON -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Reason</label>
+                <textarea name="reason" required rows="3"
+                          class="w-full p-2 mt-1 border rounded focus:ring focus:ring-blue-300"
+                          placeholder="Enter your reason"></textarea>
+            </div>
+
+            <!-- SUBMIT BUTTON -->
+            <button type="submit"
+                    class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-semibold transition">
+                Submit Leave Request
+            </button>
+        </form>
+    </div>
+
+</div>
+
+</body>
+</html>

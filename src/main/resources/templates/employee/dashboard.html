@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Employee Dashboard - EMS</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+
+<!-- NAVBAR -->
+<nav class="bg-blue-600 text-white p-4 shadow">
+  <div class="container mx-auto flex justify-between">
+    <h1 class="text-xl font-semibold">EMS Employee Dashboard</h1>
+
+    <div class="flex items-center space-x-4">
+      <a href="/employee/profile" class="hover:underline">Profile</a>
+      <a href="/logout" class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded">Logout</a>
+    </div>
+  </div>
+</nav>
+
+<!-- MAIN CONTAINER -->
+<div class="container mx-auto mt-10 space-y-10">
+
+  <!-- WELCOME CARD -->
+  <div class="bg-white p-6 shadow rounded-xl">
+    <h2 class="text-2xl font-semibold text-gray-800">
+      Welcome,
+      <span class="text-blue-600" th:text="${employee.user.fullName}"></span>
+    </h2>
+    <p class="text-gray-600 mt-2">Employee Id:
+      <span th:text="${employee.id}"></span>
+    </p>
+  </div>
+
+  <!-- ATTENDANCE CHECK-IN/OUT -->
+  <div class="bg-white p-6 shadow rounded-xl flex justify-between items-center">
+
+    <div>
+      <h3 class="text-xl font-semibold text-gray-700">Today's Attendance</h3>
+      <p class="text-gray-600 mt-1">Mark your attendance for today</p>
+    </div>
+
+    <div class="space-x-4">
+      <div th:if="${success}" class="text-green-600 mb-3">
+        <p th:text="${success}"></p>
+      </div>
+
+      <div th:if="${error}" class="text-red-600 mb-3">
+        <p th:text="${error}"></p>
+      </div>
+      <form method="post" action="/attendance/check-in" class="inline">
+        <button class="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-lg">
+          Check In
+        </button>
+      </form>
+
+      <form method="post" action="/attendance/check-out" class="inline">
+        <button class="bg-yellow-500 hover:bg-yellow-600 text-black px-5 py-2 rounded-lg">
+          Check Out
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- QUICK ACTION BUTTONS -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+    <a href="/leave/apply"
+       class="bg-blue-500 hover:bg-blue-600 text-white p-6 rounded-xl text-center shadow">
+      Apply for Leave
+    </a>
+
+    <a href="/payroll/history"
+       class="bg-green-500 hover:bg-green-600 text-white p-6 rounded-xl text-center shadow">
+      View Payroll History
+    </a>
+
+    <a href="/employee/profile"
+       class="bg-purple-500 hover:bg-purple-600 text-white p-6 rounded-xl text-center shadow">
+      View Profile
+    </a>
+
+  </div>
+
+  <!-- ATTENDANCE TABLE -->
+  <div class="bg-white p-6 shadow rounded-xl">
+    <h3 class="text-xl font-semibold mb-4 text-gray-700">Attendance History</h3>
+
+    <table class="w-full table-auto text-left">
+      <thead>
+      <tr class="bg-gray-200">
+        <th class="p-3">Date</th>
+        <th class="p-3">Check In</th>
+        <th class="p-3">Check Out</th>
+        <th class="p-3">Status</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr th:each="a : ${attendance}" class="border-b hover:bg-gray-50">
+        <td class="p-3" th:text="${a.date}"></td>
+        <td class="p-3" th:text="${a.checkInTime}"></td>
+        <td class="p-3" th:text="${a.checkOutTime}"></td>
+        <td class="p-3 font-medium" th:text="${a.status}"></td>
+      </tr>
+
+      <tr th:if="${attendance.size() == 0}">
+        <td colspan="4" class="p-4 text-center text-gray-600">
+          No attendance records available.
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- LEAVE HISTORY TABLE -->
+  <div class="bg-white p-6 shadow rounded-xl">
+    <h3 class="text-xl font-semibold mb-4 text-gray-700">Leave Requests</h3>
+
+    <table class="w-full table-auto text-left">
+      <thead>
+      <tr class="bg-gray-200">
+        <th class="p-3">Leave Type</th>
+        <th class="p-3">Start</th>
+        <th class="p-3">End</th>
+        <th class="p-3">Status</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr th:each="l : ${leaves}" class="border-b hover:bg-gray-50">
+        <td class="p-3" th:text="${l.leaveType}"></td>
+        <td class="p-3" th:text="${l.startDate}"></td>
+        <td class="p-3" th:text="${l.endDate}"></td>
+        <td class="p-3 font-medium" th:text="${l.status}"></td>
+      </tr>
+
+      <tr th:if="${leaves.size() == 0}">
+        <td colspan="4" class="p-4 text-center text-gray-600">
+          No leave requests found.
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+</body>
+</html>

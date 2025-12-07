@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard - EMS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+
+<!-- NAVBAR -->
+<nav class="bg-blue-700 text-white p-4 shadow">
+    <div class="container mx-auto flex justify-between items-center">
+        <h1 class="text-xl font-semibold">EMS Admin Dashboard</h1>
+
+        <div>
+            <a href="/logout"
+               class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded">Logout</a>
+        </div>
+    </div>
+</nav>
+
+<!-- DASHBOARD CONTAINER -->
+<div class="container mx-auto mt-10 space-y-10">
+
+    <!-- ADMIN INFO -->
+    <div class="bg-white p-6 rounded-xl shadow">
+        <h2 class="text-2xl font-semibold text-gray-800">Welcome,
+            <span class="text-blue-600" th:text="${admin.fullName}"></span>
+        </h2>
+        <p class="text-gray-600 mt-1">
+            Username: <span th:text="${admin.username}"></span>
+        </p>
+    </div>
+
+    <!-- STATS CARDS -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        <!-- Total Employees -->
+        <div class="bg-white p-6 shadow rounded-xl border-l-4 border-blue-600">
+            <h3 class="text-gray-600">Total Employees</h3>
+            <p class="text-3xl font-bold text-gray-800 mt-2"
+               th:text="${employees.size()}"></p>
+        </div>
+
+        <!-- Pending Leaves -->
+        <div class="bg-white p-6 shadow rounded-xl border-l-4 border-yellow-500">
+            <h3 class="text-gray-600">Pending Leave Requests</h3>
+            <p class="text-3xl font-bold text-gray-800 mt-2"
+               th:text="${pendingLeaves.size()}"></p>
+        </div>
+
+        <!-- Placeholder for future stats -->
+        <div class="bg-white p-6 shadow rounded-xl border-l-4 border-green-600">
+            <h3 class="text-gray-600">Active Departments</h3>
+            <p class="text-3xl font-bold text-gray-800 mt-2">5</p>
+        </div>
+    </div>
+
+    <!-- EMPLOYEES TABLE -->
+    <div class="bg-white p-6 rounded-xl shadow">
+        <h3 class="text-xl font-semibold mb-4 text-gray-700">Employees</h3>
+
+        <table class="w-full table-auto text-left">
+            <thead>
+            <tr class="bg-gray-200">
+                <th class="p-3">Emp Code</th>
+                <th class="p-3">Name</th>
+                <th class="p-3">Department</th>
+                <th class="p-3">Designation</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="e : ${employees}" class="border-b hover:bg-gray-50">
+                <td class="p-3" th:text="${e.empCode}"></td>
+                <td class="p-3" th:text="${e.user.fullName}"></td>
+                <td class="p-3" th:text="${e.department}"></td>
+                <td class="p-3" th:text="${e.designation}"></td>
+            </tr>
+
+            <tr th:if="${employees.size() == 0}">
+                <td colspan="4" class="p-3 text-center text-gray-600">
+                    No employees found.
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- PENDING LEAVE REQUESTS -->
+    <div class="bg-white p-6 rounded-xl shadow">
+        <h3 class="text-xl font-semibold mb-4 text-gray-700">Pending Leave Requests</h3>
+
+        <table class="w-full table-auto text-left">
+            <thead>
+            <tr class="bg-gray-200">
+                <th class="p-3">Employee</th>
+                <th class="p-3">Leave Type</th>
+                <th class="p-3">Dates</th>
+                <th class="p-3">Action</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="lr : ${pendingLeaves}" class="border-b hover:bg-gray-50">
+                <td class="p-3" th:text="${lr.employee.user.fullName}"></td>
+                <td class="p-3" th:text="${lr.leaveType}"></td>
+                <td class="p-3">
+                    <span th:text="${lr.startDate}"></span> →
+                    <span th:text="${lr.endDate}"></span>
+                </td>
+
+                <td class="p-3 space-x-2">
+                    <a th:href="@{'/leave/approve/' + ${lr.id}}"
+                       class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded">
+                        Approve
+                    </a>
+
+                    <a th:href="@{'/leave/reject/' + ${lr.id}}"
+                       class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded">
+                        Reject
+                    </a>
+                </td>
+            </tr>
+
+            <tr th:if="${pendingLeaves.size() == 0}">
+                <td colspan="4" class="p-3 text-center text-gray-600">
+                    No pending requests.
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+</html>

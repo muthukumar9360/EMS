@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>My Profile - EMS</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+
+<!-- NAVBAR -->
+<nav class="bg-blue-600 text-white p-4 shadow">
+  <div class="container mx-auto flex justify-between items-center">
+    <h1 class="text-xl font-semibold">EMS - Employee Profile</h1>
+
+    <div>
+      <a href="/employee/dashboard" class="mr-4 hover:underline">Dashboard</a>
+      <a href="/logout" class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded">Logout</a>
+    </div>
+  </div>
+</nav>
+
+<!-- CONTAINER -->
+<div class="container mx-auto mt-10 flex justify-center">
+
+  <div class="bg-white shadow-lg rounded-xl p-8 w-full max-w-3xl">
+
+    <h2 class="text-2xl font-semibold text-gray-700 mb-6">My Profile</h2>
+
+    <!-- PROFILE CARD -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+      <!-- FULL NAME -->
+      <div class="flex flex-col">
+        <label class="font-medium text-gray-600">Full Name</label>
+        <p class="text-gray-800 text-lg" th:text="${employee.user.fullName}"></p>
+      </div>
+
+      <!-- USERNAME -->
+      <div class="flex flex-col">
+        <label class="font-medium text-gray-600">Username</label>
+        <p class="text-gray-800 text-lg" th:text="${employee.user.username}"></p>
+      </div>
+
+      <!-- EMPLOYEE CODE -->
+      <div class="flex flex-col">
+        <label class="font-medium text-gray-600">Employee Code</label>
+        <p class="text-gray-800 text-lg" th:text="${employee.empCode}"></p>
+      </div>
+
+      <!-- DEPARTMENT -->
+      <div class="flex flex-col">
+        <label class="font-medium text-gray-600">Department</label>
+        <p class="text-gray-800 text-lg" th:text="${employee.department}"></p>
+      </div>
+
+      <!-- DESIGNATION -->
+      <div class="flex flex-col">
+        <label class="font-medium text-gray-600">Designation</label>
+        <p class="text-gray-800 text-lg" th:text="${employee.designation}"></p>
+      </div>
+
+      <!-- EMAIL -->
+      <div class="flex flex-col">
+        <label class="font-medium text-gray-600">Email</label>
+        <p class="text-gray-800 text-lg" th:text="${employee.email}"></p>
+      </div>
+
+      <!-- PHONE -->
+      <div class="flex flex-col">
+        <label class="font-medium text-gray-600">Phone</label>
+        <p class="text-gray-800 text-lg" th:text="${employee.phone}"></p>
+      </div>
+
+    </div>
+
+    <!-- EDIT BUTTON (future feature) -->
+    <div class="mt-8 text-right">
+      <a href="#"
+         class="bg-blue-600 text-white px-5 py-2 rounded-lg w-fit hover:bg-blue-700 transition">
+        Edit Profile (Coming Soon)
+      </a>
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+</html>
