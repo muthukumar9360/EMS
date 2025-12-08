@@ -61,8 +61,8 @@ src/
 
 ### 1️⃣ Clone the Project
 ```
-git clone https://github.com/your-repo/ems.git
-cd ems
+git clone https://github.com/muthukumar9360/Employee_Management_System.git
+cd Employee_Management_System
 ```
 
 ### 2️⃣ Configure MySQL
@@ -95,7 +95,8 @@ http://localhost:3030
 ## 🔐 Default Login (Example)
 | Role | Username | Password |
 |------|----------|----------|
-| Admin | admin | admin123 |
+| Admin | admin1 | Admin@123 |
+| Admin | admin2 | Admin@123 |
 
 ---
 
@@ -139,10 +140,3 @@ Admin can update:
 
 ---
 
-## 🤝 Contributing
-Feel free to fork and contribute!
-
----
-
-## 📜 License
-This project is free for educational and personal use.
